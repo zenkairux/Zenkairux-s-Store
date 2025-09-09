@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Zenkairux's Store — Home</title>
+  <style>
+    :root {
+      --bg1:#000000;
+      --bg2:#00008B;
+      --bg3:#659BDF;
+      --card:#1c1c1c;
+      --accent:#0392ff;
+      --muted:#9fbcc3;
+      --glass: rgba(255,255,255,0.05);
+      --text:#eaf8fb;
+    }
+    .light {
+      --bg1:#ffffff;
+      --bg2:#dfe9ff;
+      --bg3:#c2ebff;
+      --card:#f8f9fb;
+      --accent:#007FFF;
+      --muted:#4d5b63;
+      --glass: rgba(0,0,0,0.05);
+      --text:#1a1a1a;
+    }
+    * {box-sizing:border-box;}
+    html,body {
+      height:100%;margin:0;
+      font-family:Arial, sans-serif;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      color: var(--text);
+      transition: background .3s, color .3s;
+    }
+    a {color: var(--accent); transition:color .3s;}
+    .container {max-width:1100px;margin:18px auto;padding:12px;}
+    header {
+      padding:18px;text-align:center;
+      background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
+      backdrop-filter: blur(4px);
+      border-bottom:1px solid var(--glass);
+    }
+    header h1 {margin:0;font-size:24px; color:var(--text);}
+    header p {margin:6px 0 0;color:var(--muted);font-size:13px}
+    .nav-username {
+      margin-top:10px;
+      font-size:16px;
+      font-weight:700;
+      color:var(--accent);
+    }
+    nav.site-nav {
+      display:flex;gap:10px;justify-content:center;padding:12px;flex-wrap:wrap;background:var(--card);
+    }
+    nav.site-nav a {
+      padding:8px 12px;border-radius:10px;text-decoration:none;
+      background:transparent;color:var(--muted);
+      border:1px solid var(--glass);font-weight:700; transition:all .18s
+    }
+    nav.site-nav a:hover {
+      transform:translateY(-4px);background:rgba(255,255,255,0.05);
+      color:var(--accent)
+    }
+    .theme-toggle {
+      cursor:pointer;
+      border:none;
+      border-radius:8px;
+      padding:8px 12px;
+      background:var(--accent);
+      color:#fff;
+      font-weight:700;
+      transition:all .3s;
+    }
+    .theme-toggle:hover {background:#005fcc;}
+    .card {
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), transparent);
+      padding:20px;border-radius:12px;
+      border:1px solid var(--glass);
+      transition:transform .22s,box-shadow .22s, background .3s;
+    }
+    .card:hover {transform:translateY(-8px);box-shadow:0 14px 30px rgba(0,0,0,0.1)}
+    footer {
+      padding:18px;text-align:center;color:var(--muted);
+      margin-top:18px;border-top:1px solid var(--glass);
+    }
+    @media (max-width:760px){
+      nav.site-nav{flex-direction:column;gap:8px;align-items:center}
+      header h1{font-size:20px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Zenkairux's Store</h1>
+    <p>Live mods, resource packs & modpacks — plus CODM tips</p>
+    <div id="userDisplay" class="nav-username"></div>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  </header>
+
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="mods.html">Mods</a>
+    <a href="resource-packs.html">Resource Packs</a>
+    <a href="modpacks.html">Modpacks</a>
+    <a href="documentation.html">Documentation</a>
+    <a href="codm.html">CODM</a>
+    <a href="logsign.html">Login/SignUp</a>
+  </nav>
+
+  <main class="container">
+    <section class="card">
+      <h2>Welcome to Zenkairux's Store</h2>
+      <p style="color:var(--muted)">
+        Browse thousands of community projects. Use the search on each section to quickly find mods, resource packs or modpacks.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Zenkairux's Store<br>
+    Contact<br>
+    <a href="https://youtube.com/@zenkairux_01?si=HstFwzWftiIy6EyV">YouTube</a>
+  </footer>
+
+  <script>
+    function toggleTheme(){
+      document.body.classList.toggle('light');
+    }
+    const username = localStorage.getItem('loggedInUser');
+    const userDisplay = document.getElementById('userDisplay');
+    if(username){
+      userDisplay.innerText = `Hello, ${username}`;
+    } else {
+      userDisplay.innerText = "You are not logged in";
+    }
+  </script>
+</body>
+</html>

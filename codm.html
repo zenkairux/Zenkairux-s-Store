@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Zenkairux's Store — CODM Guide</title>
+
+<style>
+:root{
+  --bg1:#000000; --bg2:#0b1f2a; --card:#0f1720; --accent:#06b6d4; --muted:#9fbcc3;
+  --glass: rgba(255,255,255,0.03);
+  --radius:12px;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Arial, sans-serif;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:#eaf8fb;}
+a{color:var(--accent);}
+.container{max-width:1100px;margin:18px auto;padding:12px;}
+header{padding:18px;text-align:center;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);backdrop-filter: blur(4px);border-bottom:1px solid rgba(255,255,255,0.02)}
+header h1{margin:0;font-size:24px; color:#e6fbff; text-shadow:0 0 8px rgba(6,182,212,0.12);}
+header p{margin:6px 0 0;color:var(--muted);font-size:13px}
+nav.site-nav{display:flex;gap:10px;justify-content:center;padding:12px;flex-wrap:wrap;background:#222;}
+nav.site-nav a{padding:8px 12px;border-radius:10px;text-decoration:none;background:transparent;color:var(--muted);border:1px solid var(--glass);font-weight:700; transition:all .18s}
+nav.site-nav a:hover{transform:translateY(-4px);background:rgba(255,255,255,0.02);color:var(--accent)}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;margin:14px 0}
+.search-input{min-width:200px;max-width:520px;flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--glass);background:transparent;color:var(--muted)}
+.select, .btn {padding:8px 12px;border-radius:10px;border:1px solid var(--glass);background:transparent;color:var(--muted);cursor:pointer}
+.reset-btn{background:transparent}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:12px;border-radius:var(--radius);border:1px solid var(--glass);transition:transform .22s,box-shadow .22s}
+.card:hover{transform:translateY(-8px);box-shadow:0 14px 30px rgba(6,182,212,0.06)}
+.thumb{width:100%;height:140px;object-fit:cover;border-radius:8px;background:#05121a}
+.title{font-size:16px;margin:8px 0 4px}
+.desc{color:var(--muted);font-size:13px;min-height:40px}
+.actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.primary{background:var(--accent);color:#012; padding:8px 10px;border-radius:8px;text-decoration:none;font-weight:800}
+.link-min{background:transparent;border:1px solid var(--glass);padding:8px 10px;border-radius:8px;color:var(--muted);text-decoration:none}
+.load-more{display:block;margin:18px auto;padding:10px 18px;border-radius:12px;border:1px solid var(--glass);background:rgba(255,255,255,0.02);color:var(--muted);cursor:pointer}
+.load-more:disabled{opacity:.5;cursor:not-allowed}
+.code{background:#001219;padding:10px;border-radius:8px;overflow:auto;font-family:monospace;color:#bfe8ef;font-size:13px}
+footer{padding:18px;text-align:center;color:var(--muted);margin-top:18px;border-top:1px solid rgba(255,255,255,0.02)}
+@media (max-width:760px){
+  .grid{grid-template-columns:1fr}
+  nav.site-nav{flex-direction:column;gap:8px;align-items:center}
+  header h1{font-size:20px}
+  .desc{min-height:unset}
+}
+</style>
+
+</head>
+<body>
+<header><h1>CODM Guide</h1><p style="color:var(--muted)">Attachments and performance tips</p></header>
+<nav class="site-nav">
+  <a href="index.html">Home</a>
+  <a href="mods.html">Mods</a>
+  <a href="resource-packs.html">Resource Packs</a>
+  <a href="modpacks.html">Modpacks</a>
+  <a href="codm.html">CODM</a>
+</nav>
+
+<nav class="site-nav">
+  <a href="per.html">Improve Performance</a>
+  <a href="gun.html">Best attachments</a>
+</nav>
+
+<h2>1. What is CODM?</h2>
+
+<p>Call of Duty: Mobile is a first-person/third-person shooter (FPS/TPS) mobile game developed by TiMi Studios and published by Activision. It brings the classic Call of Duty experience to mobile devices with maps, weapons, and game modes from popular COD titles like Modern Warfare, Black Ops, and MW2.</p>
+
+
+
+<h2>2. Game Modes</h2>
+
+<h3>CODM has two main gameplay types:</h3>
+
+<h2>Multiplayer</h2>
+
+<h3>Team Deathmatch (TDM): Classic 5v5, first team to 50 kills wins.</h3>
+
+<h3>Domination: Capture & hold three points on the map.</h3>
+
+<h3>Search and Destroy (S&D): Plant or defuse bombs; no respawns.</h3>
+
+<h3>Free-for-All (FFA): Everyone fights individually; highest kills win.</h3>
+
+<h3>Hardpoint: Control a moving zone to earn points.</h3>
+
+<h3>Gun Game / Sniper Only / Zombies: Special modes for variety.</h3>
+
+
+<h2>Battle Royale</h2>
+
+<h3>100-player survival mode on large maps.</h3>
+
+<h3>Players can parachute, loot weapons, vehicles, and gear.</h3>
+
+<h3>Solo, Duo, or Squad mode (4 players).</h3>
+
+<h3>Features characters, classes, and airdrops.</h3>
+
+
+
+
+<h2>3. Weapon Categories</h2>
+
+<h3>CODM weapons are divided into:</h3>
+
+<p>1. Assault Rifles (AR) – Balanced range & damage.</p>
+
+
+<p>2. Submachine Guns (SMG) – High mobility & fire rate, short-range.</p>
+
+
+<p>3. Sniper Rifles (SR) – One-shot kills, long-range.</p>
+
+
+<p>4. Shotguns – Close-range powerhouse.</p>
+
+
+<p>5. Light Machine Guns (LMG) – Heavy fire, long-range suppression.</p>
+
+
+<p>6. Pistols – Secondary weapons for backup.</p>
+
+
+<p>7. Melee & Throwables – Knives, grenades, C4, etc.</p>
+
+
+
+
+
+<h2>4. Gunsmith / Attachments</h2>
+
+<p>Each gun has a gunsmith system where you can attach items like muzzle, barrel, stock, laser, optic, and rear grip.
+Purpose: Customize ADS speed, recoil control, range, mobility, and stealth.
+Popular in Multiplayer and Battle Royale to optimize your loadout.</p>
+
+
+
+
+<h2>5. Characters & Perks</h2>
+
+<p>Characters: Many from COD universe, some with unique skills.
+Perks: Give passive boosts like faster reload, reduced flinch, or faster movement.
+Scorestreaks: Rewards earned during matches (e.g., UAV, Sentry Gun, Chopper Gunner).</p>
+
+
+
+
+<h2>6. Events & Ranked Mode</h2>
+
+<p>Seasonal events and battle passes give exclusive skins, weapons, and cosmetics.</p>
+
+<h3>Ranked Mode: </h3><p>Competitive ladder with ranks (Bronze → Grandmaster) for skilled players.</p>
+
+
+
+
+<h2>7. Controls<h2>
+
+<h3>CODM allows full touchscreen customization:</h3>
+
+<h3>Classic layout:</h3> <p>Standard FPS controls.</p>
+
+<h3>Advanced layout: </h3><p>Separate buttons for crouch, prone, jump, sprint, and fire.</p>
+
+<h3>Sensitivity settings: </h3><p>Customize aiming, ADS, and gyroscope controls.</p>
+</main>
+<footer>© 2025 Zenkairux's Store — CODM tips</footer>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Sign Up — Zenkairux's Store</title>
+  <style>
+    :root {
+      --bg1:#000000;
+      --bg2:#f2f2ff;
+      --card:#1c1c1c;
+      --accent:#0392ff;
+      --glass: rgba(255,255,255,0.08);
+      --text:#22ddca;
+      --muted:#9fbcc3;
+    }
+    body {
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-family:Arial, sans-serif;
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:var(--text);
+      padding:16px;
+    }
+    .container {
+      width:100%;
+      max-width:400px;
+      position:relative;
+    }
+    .card {
+      background:var(--card);
+      padding:26px 20px;
+      border-radius:14px;
+      border:1px solid var(--glass);
+      box-shadow:0 10px 30px rgba(0,0,0,0.3);
+      position:absolute;
+      width:100%;
+      transition:transform .6s ease, opacity .6s ease;
+    }
+    h2 {margin:0 0 18px;text-align:center;font-size:22px;}
+    input {
+      width:100%;
+      padding:14px;
+      margin:10px 0;
+      border-radius:8px;
+      border:1px solid var(--glass);
+      background:rgba(255,255,255,0.05);
+      color:var(--text);
+      font-size:15px;
+    }
+    button {
+      width:100%;
+      padding:14px;
+      margin-top:10px;
+      border:none;
+      border-radius:8px;
+      background:var(--accent);
+      color:#fff;
+      font-weight:700;
+      font-size:16px;
+      cursor:pointer;
+      transition:all .3s;
+    }
+    button:hover {background:#005fcc;}
+    .switch {
+      text-align:center;
+      margin-top:14px;
+      font-size:14px;
+      color:var(--muted);
+      cursor:pointer;
+    }
+    a {
+      display:block;
+      margin-top:8px;
+      text-align:right;
+      font-size:14px;
+      color:var(--accent);
+      text-decoration:none;
+    }
+    a:hover {text-decoration:underline;}
+    /* Animation states */
+    .hidden {opacity:0;transform:translateX(100%);pointer-events:none;}
+    .active {opacity:1;transform:translateX(0);pointer-events:auto;}
+    
+    /* Mobile adjustments */
+    @media (max-width:480px){
+      h2 {font-size:20px;}
+      input, button {font-size:14px; padding:12px;}
+      .container {max-width:95%;}
+      .card {padding:20px 16px;}
+      a {font-size:13px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Login card -->
+    <div id="loginCard" class="card active">
+      <h2>Login</h2>
+      <input type="text" id="loginUser" placeholder="Username" required>
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPass" placeholder="Password" required>
+      <a href="https://discord.gg/kGSV2tZsrc">Forget Password</a>
+      <button onclick="login()">Login</button>
+      <div class="switch" onclick="showSignup()">Don't have an account? Sign Up</div>
+    </div>
+
+    <!-- Signup card -->
+    <div id="signupCard" class="card hidden">
+      <h2>Sign Up</h2>
+      <input type="text" id="signupUser" placeholder="Choose Username" required>
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPass" placeholder="Password" required>
+      <button onclick="signup()">Sign Up</button>
+      <div class="switch" onclick="showLogin()">Already have an account? Login</div>
+    </div>
+  </div>
+
+  <script>
+    const loginCard = document.getElementById('loginCard');
+    const signupCard = document.getElementById('signupCard');
+
+    function showSignup(){
+      loginCard.classList.remove('active');
+      loginCard.classList.add('hidden');
+      signupCard.classList.remove('hidden');
+      signupCard.classList.add('active');
+    }
+
+    function showLogin(){
+      signupCard.classList.remove('active');
+      signupCard.classList.add('hidden');
+      loginCard.classList.remove('hidden');
+      loginCard.classList.add('active');
+    }
+
+    function validEmail(email){
+      return /@(gmail\.com|hotmail\.com|outlook\.com)$/.test(email);
+    }
+
+    function signup(){
+      const user = document.getElementById('signupUser').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const pass = document.getElementById('signupPass').value.trim();
+      if(!user || !email || !pass) return alert("Please fill all fields.");
+      if(!validEmail(email)) return alert("Email must end with @gmail.com, @hotmail.com or @outlook.com.");
+      
+      const account = {user, email, pass};
+      localStorage.setItem('account_'+email, JSON.stringify(account));
+      localStorage.setItem('loggedInUser', user);
+      localStorage.setItem('loggedInEmail', email);
+      alert("Account created! You are now logged in.");
+      window.location.href="index.html";
+    }
+
+    function login(){
+      const user = document.getElementById('loginUser').value.trim();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass = document.getElementById('loginPass').value.trim();
+      if(!user || !email || !pass) return alert("Please fill all fields.");
+      if(!validEmail(email)) return alert("Email must end with @gmail.com, @hotmail.com or @outlook.com.");
+      
+      const saved = localStorage.getItem('account_'+email);
+      if(!saved) return alert("No account found with this email. Please Sign Up first.");
+      
+      const account = JSON.parse(saved);
+      if(account.user === user && account.pass === pass){
+        localStorage.setItem('loggedInUser', user);
+        localStorage.setItem('loggedInEmail', email);
+        window.location.href="index.html";
+      } else {
+        alert("Invalid username or password.");
+      }
+    }
+  </script>
+</body>
+</html>

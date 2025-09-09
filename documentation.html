@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation — Zenkairux's Store</title>
+  <style>
+    :root {
+      --bg1:#000000;
+      --bg2:#0a0a1a;
+      --card:#1c1c1c;
+      --accent:#0392ff;
+      --glass: rgba(255,255,255,0.08);
+      --text:#22ddca;
+      --muted:#9fbcc3;
+    }
+    body {
+      margin:0;
+      font-family:Arial, sans-serif;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      color: var(--text);
+      padding:16px;
+      min-height:100vh;
+    }
+    header {
+      text-align:center;
+      padding:20px 0;
+      border-bottom:1px solid var(--glass);
+    }
+    header h1 {margin:0;font-size:24px;}
+    header p {margin:6px 0;color:var(--muted);}
+    nav.site-nav {
+      display:flex;gap:10px;justify-content:center;padding:12px;flex-wrap:wrap;background:var(--card);
+    }
+    nav.site-nav a {
+      padding:8px 12px;border-radius:10px;text-decoration:none;
+      background:transparent;color:var(--muted);
+      border:1px solid var(--glass);font-weight:700; transition:all .18s
+    }
+    nav.site-nav a:hover {
+      transform:translateY(-4px);background:rgba(255,255,255,0.05);
+      color:var(--accent)
+    }
+    .search-container {
+      max-width:600px;
+      margin:20px auto;
+      text-align:center;
+    }
+    .search-input {
+      width:90%;
+      max-width:400px;
+      padding:10px 14px;
+      border-radius:8px;
+      border:1px solid var(--glass);
+      font-size:16px;
+      background:rgba(255,255,255,0.05);
+      color:var(--text);
+    }
+    .container {
+      max-width:1000px;
+      margin:20px auto;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap:20px;
+    }
+    .card {
+      background:var(--card);
+      padding:20px;
+      border-radius:12px;
+      border:1px solid var(--glass);
+      box-shadow:0 10px 25px rgba(0,0,0,0.3);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.4);
+    }
+    .card h2 {margin-top:0;font-size:20px;}
+    .card p {color:var(--muted);}
+    .download-btn {
+      display:inline-block;
+      margin-top:12px;
+      padding:10px 16px;
+      background:var(--accent);
+      color:#fff;
+      font-weight:700;
+      border-radius:8px;
+      text-decoration:none;
+      transition:all .3s;
+    }
+    .download-btn:hover {background:#005fcc;}
+    @media(max-width:480px){
+      header h1 {font-size:20px;}
+      .search-input {font-size:14px; padding:10px;}
+      .card {padding:16px;}
+      .download-btn {font-size:14px;padding:10px 14px;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Documentation</h1>
+    <p>Other Stuffs</p>
+  </header>
+
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="mods.html">Mods</a>
+    <a href="resource-packs.html">Resource Packs</a>
+    <a href="modpacks.html">Modpacks</a>
+    <a href="documentation.html">Documentation</a>
+    <a href="codm.html">CODM</a>
+    <a href="logsign.html">Login/SignUp</a>
+  </nav>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" class="search-input" placeholder="Search documentation..." onkeyup="filterDocs()">
+  </div>
+
+  <div class="container" id="docContainer">
+    <div class="card">
+      <h2>Zenkairux Optimized</h2>
+      <p>A lightweight and performance-enhancing Fabric modpack for Minecraft.</p>
+      <a class="download-btn" href="https://www.mediafire.com/file/euq302hdd385661/Zenkairuxoptimized2.0.0.zenpack/file?dkey=sr04htni58o&r=896" target="_blank">Download</a>
+    </div>
+
+    <div class="card">
+      <h2>Resource Pack Instructions</h2>
+      <p>Instructions to install texture packs, shaders, and other enhancements.</p>
+      <a class="download-btn" href="https://drive.google.com/your-resource-link" target="_blank">Download</a>
+    </div>
+
+    <div class="card">
+      <h2>Extra Mods Documentation</h2>
+      <p>Documentation for additional mods that are not available on official platforms.</p>
+      <a class="download-btn" href="https://drive.google.com/your-mod-link" target="_blank">Download</a>
+    </div>
+  </div>
+
+  <script>
+    function filterDocs(){
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('#docContainer .card');
+      cards.forEach(card => {
+        const title = card.querySelector('h2').innerText.toLowerCase();
+        const desc = card.querySelector('p').innerText.toLowerCase();
+        if(title.includes(input) || desc.includes(input)){
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

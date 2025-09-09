@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Zenkairux's Store — Mods</title>
+
+<style>
+:root{
+  --bg1:#000000; --bg2:#000000; --card:#0f1720; --accent:#06b6d4; --muted:#9fbcc3;
+  --glass: rgba(255,255,255,0.03);
+  --radius:12px;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Arial, sans-serif;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:#eaf8fb;}
+a{color:var(--accent);}
+.container{max-width:1100px;margin:18px auto;padding:12px;}
+header{padding:18px;text-align:center;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);backdrop-filter: blur(4px);border-bottom:1px solid rgba(255,255,255,0.02)}
+header h1{margin:0;font-size:24px; color:#e6fbff; text-shadow:0 0 8px rgba(6,182,212,0.12);}
+header p{margin:6px 0 0;color:var(--muted);font-size:13px}
+nav.site-nav{display:flex;gap:10px;justify-content:center;padding:12px;flex-wrap:wrap;background:#222;}
+nav.site-nav a{padding:8px 12px;border-radius:10px;text-decoration:none;background:transparent;color:var(--muted);border:1px solid var(--glass);font-weight:700; transition:all .18s}
+nav.site-nav a:hover{transform:translateY(-4px);background:rgba(255,255,255,0.02);color:var(--accent)}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;margin:14px 0}
+.search-input{min-width:200px;max-width:520px;flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--glass);background:transparent;color:var(--muted)}
+.select, .btn {padding:8px 12px;border-radius:10px;border:1px solid var(--glass);background:transparent;color:var(--muted);cursor:pointer}
+.reset-btn{background:transparent}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:12px;border-radius:var(--radius);border:1px solid var(--glass);transition:transform .22s,box-shadow .22s}
+.card:hover{transform:translateY(-8px);box-shadow:0 14px 30px rgba(6,182,212,0.06)}
+.thumb{width:100%;height:140px;object-fit:cover;border-radius:8px;background:#05121a}
+.title{font-size:16px;margin:8px 0 4px}
+.desc{color:var(--muted);font-size:13px;min-height:40px}
+.actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.primary{background:var(--accent);color:#012; padding:8px 10px;border-radius:8px;text-decoration:none;font-weight:800}
+.link-min{background:transparent;border:1px solid var(--glass);padding:8px 10px;border-radius:8px;color:var(--muted);text-decoration:none}
+.load-more{display:block;margin:18px auto;padding:10px 18px;border-radius:12px;border:1px solid var(--glass);background:rgba(255,255,255,0.02);color:var(--muted);cursor:pointer}
+.load-more:disabled{opacity:.5;cursor:not-allowed}
+.code{background:#001219;padding:10px;border-radius:8px;overflow:auto;font-family:monospace;color:#bfe8ef;font-size:13px}
+footer{padding:18px;text-align:center;color:var(--muted);margin-top:18px;border-top:1px solid rgba(255,255,255,0.02)}
+@media (max-width:760px){
+  .grid{grid-template-columns:1fr}
+  nav.site-nav{flex-direction:column;gap:8px;align-items:center}
+  header h1{font-size:20px}
+  .desc{min-height:unset}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <h1>Mods</h1>
+  <p style="color:var(--muted)">Browse and search mods via Modrinth</p>
+</header>
+<nav class="site-nav">
+  <a href="index.html">Home</a>
+  <a href="mods.html">Mods</a>
+  <a href="resource-packs.html">Resource Packs</a>
+  <a href="modpacks.html">Modpacks</a>
+  <a href="codm.html">CODM</a>
+</nav>
+<main class="container">
+  <div class="toolbar">
+    <input id="qM" class="search-input" placeholder="Search mods...">
+    <select id="limitM" class="select">
+      <option value="12">12 / page</option>
+      <option value="24">24 / page</option>
+    </select>
+    <button id="resetM" class="btn reset-btn">Reset</button>
+  </div>
+  <div id="gridM" class="grid">Loading mods…</div>
+  <button id="loadMoreM" class="load-more">Load more</button>
+</main>
+<footer>Data from Modrinth</footer>
+<script>
+(() => {
+  const grid = document.getElementById('gridM');
+  const loadMore = document.getElementById('loadMoreM');
+  const search = document.getElementById('qM');
+  const limitSelect = document.getElementById('limitM');
+  const resetBtn = document.getElementById('resetM');
+
+  let offset = 0, limit = parseInt(limitSelect.value,10), all = [], loading = false;
+
+  function qFacets(pt){ return encodeURIComponent(JSON.stringify([[`project_type:${pt}`]])); }
+
+  async function fetchBatch(){
+    if (loading) return; loading = true; loadMore.disabled = true;
+    if (offset===0) grid.innerHTML = 'Loading...';
+    const url = `https://api.modrinth.com/v2/search?limit=${limit}&offset=${offset}&facets=${qFacets('mod')}`;
+    try {
+      const res = await fetch(url); if(!res.ok) throw new Error('API error');
+      const data = await res.json();
+      all = all.concat(data.hits||[]);
+      render(all);
+      offset += limit;
+      if ((data.hits||[]).length < limit) loadMore.style.display = 'none'; else loadMore.style.display = 'block';
+    } catch(e){ console.error(e); if(offset===0) grid.innerHTML='Error loading'; } finally{ loading=false; loadMore.disabled=false; }
+  }
+
+  function render(items){
+    grid.innerHTML = '';
+    if (!items.length) { grid.innerHTML = '<div style="color:var(--muted)">No items</div>'; return; }
+    for(const it of items){
+      const card = document.createElement('div'); card.className='card';
+      const thumb = it.icon_url?`<img class="thumb" src="${it.icon_url}" alt="">`:'';
+      const desc = it.description||'';
+      const page = `https://modrinth.com/mod/${it.slug}`;
+      card.innerHTML = `${thumb}<div class="title">${it.title}</div><div class="desc">${desc}</div>
+        <div class="actions"><a class="primary" href="${page}" target="_blank">Open</a>
+        <a class="link-min" href="${page}/versions" target="_blank">Versions</a></div>`;
+      grid.appendChild(card);
+    }
+  }
+
+  let t; search.addEventListener('input', e=>{ clearTimeout(t); t=setTimeout(()=>{ 
+    const q=e.target.value.toLowerCase(); if(!q) return render(all);
+    const f=all.filter(it=>(it.title+' '+(it.description||'')).toLowerCase().includes(q));
+    render(f);
+  },300); });
+
+  limitSelect.addEventListener('change', ()=>{ limit=parseInt(limitSelect.value,10); resetAll(); });
+  resetBtn.addEventListener('click', resetAll);
+  loadMore.addEventListener('click', fetchBatch);
+
+  function resetAll(){ offset=0; all=[]; grid.innerHTML=''; loadMore.style.display='block'; fetchBatch(); }
+
+  fetchBatch();
+})();
+</script>
+</body>
+</html>
